@@ -41,6 +41,7 @@ export default {}
 .content{
   box-sizing: border-box;
   padding: 10px;
+  overflow: scroll;
 }
 .layout {
   border: 1px solid #d7dde4;

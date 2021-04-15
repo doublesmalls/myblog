@@ -8,6 +8,7 @@ const constRoutes = [{
   path: '/admin',
   name: 'adminLayout',
   component: adminLayout,
+  redirect:'/admin/user',
   children: [{
       path: 'user',
       name: 'adminUser',
