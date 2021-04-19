@@ -1,12 +1,13 @@
 <template>
-  <div>
-    
-  </div>
+  <div>图片</div>
 </template>
 
 <script>
-export default {}
+export default {
+
+}
 </script>
 
 <style>
+
 </style>
