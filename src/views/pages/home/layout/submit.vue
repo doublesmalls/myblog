@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 import { signUser, loginUser } from '@/api/admin/user.js'
 export default {
   data() {
@@ -52,7 +54,12 @@ export default {
       },
     }
   },
+  computed: {
+    ...mapGetters(['token', 'userInfo']),
+  },
   methods: {
+    ...mapActions(['login']),
+
     // 时间格式化
     dateFormat(fmt, date) {
       let ret
@@ -104,7 +111,7 @@ export default {
               }
             })
           } else if (this.titleText === '登录') {
-            loginUser({
+            this.login({
               name: this.paramsForm.name,
               pwd: this.paramsForm.password,
             }).then((res) => {
