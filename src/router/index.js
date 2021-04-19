@@ -37,7 +37,7 @@ const constRoutes = [{
   {
     path: '/homePage',
     name: 'homePage',
-    component: () => import('@/views/pages/home/layout.vue'),
+    component: () => import('@/views/pages/home/layout/layout.vue'),
     children: [{
       path: '/home',
       name: 'home',

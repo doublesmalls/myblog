@@ -16,3 +16,19 @@ export function deleteUser(parameter) {
     data: parameter
   });
 }
+// 注册
+export function signUser(parameter) {
+  return axios({
+    url: `/api/userSign`,
+    method: 'post',
+    data: parameter
+  });
+}
+// 登录
+export function loginUser(parameter) {
+  return axios({
+    url: `/api/user/userLogin`,
+    method: 'post',
+    data: parameter
+  });
+}
