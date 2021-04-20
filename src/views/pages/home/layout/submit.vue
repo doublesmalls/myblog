@@ -5,10 +5,10 @@
       <Button @click="clickSign" style="margin-right:10px;">注册</Button>
       <Avatar icon="ios-person" size="large" />
     </div>
-    <Modal :width="400" footer-hide v-model="submitModalVisible" :title="titleText">
+    <Modal :width="400" footer-hide v-model="submitModalVisible" :title="titleText" @on-cancel="handleClose">
       <Form :model="paramsForm" ref="submitForm" :rules="paramsFormRules" :label-width="60">
         <FormItem prop="name" label="用户名">
-          <Input v-model="paramsForm.name" type="text" />
+          <Input v-model="paramsForm.username" type="text" />
         </FormItem>
         <FormItem prop="password" label="密码">
           <Input v-model="paramsForm.password" type="password" />
@@ -32,7 +32,7 @@ export default {
       submitModalVisible: false,
       titleText: '登录',
       paramsForm: {
-        name: '',
+        username: '',
         password: '',
         signTime: this.dateFormat('YYYY-mm-dd HH:MM', new Date()),
       },
@@ -99,7 +99,7 @@ export default {
         if (valid) {
           if (this.titleText === '注册') {
             signUser({
-              name: this.paramsForm.name,
+              name: this.paramsForm.username,
               pwd: this.paramsForm.password,
               signTime: this.paramsForm.signTime,
             }).then((res) => {
@@ -112,7 +112,7 @@ export default {
             })
           } else if (this.titleText === '登录') {
             this.login({
-              name: this.paramsForm.name,
+              name: this.paramsForm.username,
               pwd: this.paramsForm.password,
             }).then((res) => {
               if (res.data.code === 200) {
@@ -129,6 +129,10 @@ export default {
           return
         }
       })
+    },
+    // 关闭输入框
+    handleClose() {
+      this.$refs.submitForm.resetFields()
     },
   },
 }

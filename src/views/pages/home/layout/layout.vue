@@ -2,16 +2,17 @@
   <div>
     <Menu class="menu" mode="horizontal" active-name="1">
       <MenuItem to="/home" name="home">
-        <Icon type="ios-paper" />首页
+        <i class="iconfont icon-shouye"></i>
+        首页
       </MenuItem>
       <MenuItem to="/article" name="article">
-        <Icon type="ios-people" />文章
+        <i class="iconfont icon-navicon-wzgl"></i>文章
       </MenuItem>
       <MenuItem to="/comment" name="message">
-        <Icon type="ios-construct" />留言
+        <i class="iconfont icon-liuyan"></i>留言
       </MenuItem>
       <MenuItem to="/picture" name="picture">
-        <Icon type="ios-construct" />乱涂乱画
+        <i class="iconfont icon-sheji_huatu"></i>涂乱画
       </MenuItem>
       <Submit></Submit>
     </Menu>
