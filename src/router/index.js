@@ -54,6 +54,10 @@ const constRoutes = [{
       path: '/picture',
       name: 'picture',
       component: () => import('@/views/pages/home/picture.vue')
+    },{
+      path:'/detail',
+      name:'Detail',
+      component:() => import('@/views/pages/home/detail.vue')
     }]
   },
 

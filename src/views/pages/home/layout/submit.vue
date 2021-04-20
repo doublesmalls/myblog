@@ -87,11 +87,13 @@ export default {
     clickLogin() {
       this.submitModalVisible = true
       this.titleText = '登录'
+      this.$refs.submitForm.resetFields()
     },
     // 点击注册
     clickSign() {
       this.submitModalVisible = true
       this.titleText = '注册'
+      this.$refs.submitForm.resetFields()
     },
     // 点击确认
     handleSubmit() {
