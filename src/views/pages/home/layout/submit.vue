@@ -7,7 +7,7 @@
     </div>
     <Modal :width="400" footer-hide v-model="submitModalVisible" :title="titleText" @on-cancel="handleClose">
       <Form :model="paramsForm" ref="submitForm" :rules="paramsFormRules" :label-width="60">
-        <FormItem prop="name" label="用户名">
+        <FormItem prop="username" label="用户名">
           <Input v-model="paramsForm.username" type="text" />
         </FormItem>
         <FormItem prop="password" label="密码">
@@ -25,7 +25,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
-import { signUser, loginUser } from '@/api/admin/user.js'
+import { signUser, loginUser, getUserInfo } from '@/api/admin/user.js'
 export default {
   data() {
     return {
@@ -37,7 +37,7 @@ export default {
         signTime: this.dateFormat('YYYY-mm-dd HH:MM', new Date()),
       },
       paramsFormRules: {
-        name: [
+        username: [
           {
             required: true,
             message: '请输入用户名',
@@ -58,7 +58,7 @@ export default {
     ...mapGetters(['token', 'userInfo']),
   },
   methods: {
-    ...mapActions(['login']),
+    ...mapActions(['login', 'getUserInfo']),
 
     // 时间格式化
     dateFormat(fmt, date) {
@@ -120,6 +120,7 @@ export default {
               if (res.data.code === 200) {
                 this.submitModalVisible = false
                 this.$Message.success('登录成功!')
+                this.getUserInfo({ _id: this.token })
               } else {
                 this.$Message.error(`登录失败！${res.data.data.message}`)
               }

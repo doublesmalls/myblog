@@ -32,3 +32,11 @@ export function loginUser(parameter) {
     data: parameter
   });
 }
+// 获取用户信息
+export function getUserInfo(parameter) {
+  return axios({
+    url: `/api/user/getUserInfo`,
+    method: 'post',
+    data: parameter
+  });
+}

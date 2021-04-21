@@ -1,5 +1,6 @@
 import {
-  loginUser
+  loginUser,
+  getUserInfo
 } from '@/api/admin/user.js'
 const userStore = {
   state: {
@@ -22,6 +23,7 @@ const userStore = {
 
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo;
+      sessionStorage.setItem('userInfo', userInfo);
     }
   },
   actions: {
@@ -33,6 +35,22 @@ const userStore = {
         loginUser(params).then(
           response => {
             commit('setToken', response.data.data.token);
+            resolve(response);
+          },
+          error => {
+            reject(error);
+          }
+        );
+      });
+    },
+    // 根据token获取用户信息
+    getUserInfo({
+      commit,
+    }, params) {
+      return new Promise((resolve, reject) => {
+        getUserInfo(params).then(
+          response => {
+            commit('setUserInfo', response.data.data);
             resolve(response);
           },
           error => {
