@@ -16,7 +16,7 @@
       </MenuItem>
       <Submit></Submit>
     </Menu>
-    <router-view></router-view>
+    <router-view style="margin-top:70px;"></router-view>
   </div>
 </template>
 
@@ -31,6 +31,8 @@ export default {
 
 <style lang="less" scoped>
 .menu {
-  position: relative;
+  width:100%;
+  position: fixed;
+  top: 0;
 }
 </style>

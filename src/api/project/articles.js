@@ -10,3 +10,11 @@ export function getArticleList(parameter) {
     data: parameter
   });
 }
+// 根据id获取文章内容
+export function getArticleById(parameter) {
+  return axios({
+    url: `/api/getArticleContent`,
+    method: 'post',
+    data: parameter
+  });
+}

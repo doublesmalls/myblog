@@ -10,7 +10,7 @@
           <span @click="handleJumpToDetail(item)" class="detail">查看详情</span>
         </ListItem>
       </List>
-      <Page :total="total" />
+      <Page @on-change="handlePageChange" :total="total" />
     </div>
   </div>
 </template>
@@ -22,16 +22,22 @@ export default {
     return {
       listData: [],
       total: 1,
+      currentPage: 1,
     }
   },
   mounted() {
-    this.getList()
+    this.getList(this.currentPage)
   },
   methods: {
+    handlePageChange(val) {
+      this.currentPage = val
+      this.getList(this.currentPage)
+    },
     //  获取文章列表
-    getList() {
+    getList(currentPage) {
+      window.scrollTo(0, 0)
       getArticleList({
-        pageNo: 1,
+        pageNo: currentPage,
         pageSize: 10,
       }).then((res) => {
         if (res.data.code === 200) {
@@ -44,8 +50,8 @@ export default {
     handleJumpToDetail(item) {
       this.$router.push({
         name: 'Detail',
-        params: {
-          detailContent: item,
+        query: {
+          detailId: item._id,
         },
       })
     },
