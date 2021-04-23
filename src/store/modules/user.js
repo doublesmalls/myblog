@@ -24,7 +24,12 @@ const userStore = {
 
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo;
-      sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+      if (userInfo) {
+        sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+      } else {
+        sessionStorage.removeItem('userInfo');
+
+      }
     }
   },
   actions: {
@@ -67,10 +72,9 @@ const userStore = {
       return new Promise((resolve, reject) => {
         userLogout().then(
           response => {
-            // commit(types.SET_TOKEN, null);
-            // commit(types.SET_USER_INFO, null);
-            window.localStorage.clear();
-            window.sessionStorage.clear();
+            commit('setToken', null);
+            commit('setUserInfo', null);
+
             resolve(response);
           },
           error => {

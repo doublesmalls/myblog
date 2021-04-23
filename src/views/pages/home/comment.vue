@@ -1,21 +1,26 @@
 <template>
   <div>
     <div class="container">
-      <div class="comment-container"></div>
-      <div class="comment-container"></div>
-      <div class="comment-container"></div>
-      <div class="comment-container"></div>
-      <div class="comment-container"></div>
+      <div v-for="(item,index) in commentList" :key="index" class="comment-container">
+        <Avatar shape="circle" icon="ios-person" :size="200" />
+        {{item.username}}{{item.content}}{{item.date}}
+      </div>
 
       <div class="intro-container">
-        <div>
-          <Button @click="handleClickWrite" shape="circle" class="intro-button" size="large" type="primary">写留言</Button>
-        </div>
+        <Card :bordered="false">
+          <p style="height:35px;" slot="title">
+            <span style="margin-right:50px;font-size:16px;">推荐文章</span>
+            <Button @click="handleClickWrite" shape="circle" class="intro-button" size="large" type="primary">写留言</Button>
+          </p>
+
+          <li v-for="(item,index) in recommendContent" :key="index">{{item.title}}</li>
+        </Card>
       </div>
     </div>
     <Modal @on-ok="handleAddComment" v-model="commentModalVisible" title="写留言">
       <Input :rows="5" v-model="commentContent" type="textarea" />
     </Modal>
+    <Page></Page>
   </div>
 </template>
 
@@ -28,9 +33,12 @@ export default {
     return {
       commentModalVisible: false,
       commentContent: '',
+      commentList: [],
+      recommendContent: [],
     }
   },
   mounted() {
+    this.getComment()
     this.getArticleFive()
   },
   computed: {
@@ -39,8 +47,10 @@ export default {
   methods: {
     // 获取留言列表
     getComment() {
-      getCommentList().then((res) => {
+      getCommentList({ pageNo: 1, pageSize: 10 }).then((res) => {
         if (res.data.code === 200) {
+          this.commentList = res.data.data
+          console.log(this.commentList)
         }
       })
     },
@@ -92,7 +102,9 @@ export default {
     // 获取前5个文章
     getArticleFive() {
       getArticleTopFive().then((res) => {
-        console.log(res);
+        if (res.data.code === 200) {
+          this.recommendContent = res.data.data
+        }
       })
     },
   },
@@ -100,6 +112,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+li {
+  list-style: none;
+}
 .container {
   width: 1200px;
   position: relative;
@@ -109,37 +124,26 @@ export default {
     position: absolute;
     right: 0;
     width: 330px;
-    height: 400px;
     top: 0;
     border-radius: 5px;
     border: 1px solid #eeeeee9f;
-    box-shadow: 2px 2px 3px #eeeeee;
     .intro-button {
-      width: 200px;
-      position: absolute;
-      left: 50%;
-      top: 20px;
-      padding: 5px;
-      border-bottom: 1px solid #eeeeee;
-      transform: translateX(-50%);
+      float: right;
     }
-    .intro-button::after {
-      content: '';
-      width: 230px;
-      height: 0;
-      position: absolute;
-      border-bottom: 1px solid #eeeeee;
-      top: 50px;
-      left: 50%;
-      transform: translateX(-50%);
+    li {
+      padding: 5px;
+      cursor: pointer;
+    }
+    li:hover {
+      background-color: rgba(230, 239, 243, 0.4);
     }
   }
   .comment-container {
     width: 800px;
-    background-color: pink;
     height: 200px;
     margin-bottom: 20px;
     border-radius: 5px;
+    border: 1px solid #eeeeee;
   }
 }
 </style>

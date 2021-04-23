@@ -12,7 +12,7 @@
         <i class="iconfont icon-liuyan"></i>留言
       </MenuItem>
       <MenuItem to="/picture" name="picture">
-        <i class="iconfont icon-sheji_huatu"></i>涂乱画
+        <i class="iconfont icon-sheji_huatu"></i>乱涂乱画
       </MenuItem>
       <Submit></Submit>
     </Menu>

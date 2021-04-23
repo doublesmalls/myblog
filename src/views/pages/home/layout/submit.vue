@@ -6,7 +6,7 @@
       <Avatar icon="ios-person" size="large" />
     </div>
     <div v-if="name" class="user-info">
-      欢迎你:{{userInfo.name}}
+      欢迎你:{{name}}
       <Dropdown>
         <a href="javascript:void(0)">
           <Avatar style="margin-left:10px;" icon="ios-person" size="large" />
@@ -38,14 +38,13 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 
-import { signUser, loginUser, getUserInfo } from '@/api/admin/user.js'
+import { signUser, loginUser } from '@/api/admin/user.js'
 export default {
   data() {
     return {
       submitModalVisible: false,
       titleText: '登录',
       name: '',
-      isShowLogin: true,
       paramsForm: {
         username: '',
         password: '',
@@ -139,13 +138,14 @@ export default {
             }).then((res) => {
               if (res.data.code === 200) {
                 this.submitModalVisible = false
-                this.$Message.success('登录成功!')
-                this.isShowLogin = false
-                this.getUserInfo({ _id: this.token })
-                this.name = this.userInfo.name
-                console.log(this.name)
-              } else {
-                this.$Message.error(`登录失败！${res.data.data.message}`)
+                this.getUserInfo({ _id: this.token }).then((res) => {
+                  if (res.data.code === 200) {
+                    this.name = this.userInfo.name
+                    this.$Message.success('登录成功!')
+                  } else {
+                    this.$Message.error(`登录失败！${res.data.data.message}`)
+                  }
+                })
               }
             })
           } else {
@@ -165,7 +165,6 @@ export default {
       this.logout().then((res) => {
         this.$Message.success('退出成功!')
         this.name = ''
-        
       })
     },
   },

@@ -14,7 +14,7 @@ export function addComment(parameter) {
 // 获取留言列表
 export function getCommentList(parameter) {
   return axios({
-    url: `/api/addComment`,
+    url: `/api/getCommentList`,
     method: 'post',
     data: parameter
   });
