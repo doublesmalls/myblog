@@ -19,14 +19,14 @@
             <Button @click="handleClickWrite" shape="circle" class="intro-button" size="large" type="primary">写留言</Button>
           </p>
 
-          <li v-for="(item,index) in recommendContent" :key="index">{{item.title}}</li>
+          <li v-for="(item,index) in recommendContent" :key="index" @click="handleJumpToDetail(item)">{{item.title}}</li>
         </Card>
       </div>
+      <Page @on-change="handlePageChange" :total="total" :page-size="pageSize" show-total></Page>
     </div>
     <Modal @on-ok="handleAddComment" v-model="commentModalVisible" title="写留言">
       <Input :rows="5" v-model="commentContent" type="textarea" />
     </Modal>
-    <Page></Page>
   </div>
 </template>
 
@@ -41,6 +41,9 @@ export default {
       commentContent: '',
       commentList: [],
       recommendContent: [],
+      currentPage: 1,
+      total: 1,
+      pageSize: 5,
     }
   },
   mounted() {
@@ -53,9 +56,10 @@ export default {
   methods: {
     // 获取留言列表
     getComment() {
-      getCommentList({ pageNo: 1, pageSize: 10 }).then((res) => {
+      getCommentList({ pageNo: this.currentPage, pageSize: 5 }).then((res) => {
         if (res.data.code === 200) {
           this.commentList = res.data.data
+          this.total = res.data.total
           console.log(this.commentList)
         }
       })
@@ -102,6 +106,7 @@ export default {
       }).then((res) => {
         if (res.data.code === 200) {
           this.$Message.success(res.data.message)
+          this.getComment()
         }
       })
     },
@@ -110,8 +115,23 @@ export default {
       getArticleTopFive().then((res) => {
         if (res.data.code === 200) {
           this.recommendContent = res.data.data
+          console.log(this.recommendContent)
         }
       })
+    },
+    // 跳往推荐详情
+    handleJumpToDetail(item) {
+      this.$router.push({
+        name: 'Detail',
+        query: {
+          detailId: item._id,
+        },
+      })
+    },
+    // 切换页数
+    handlePageChange(val) {
+      this.currentPage = val
+      this.getComment()
     },
   },
 }
