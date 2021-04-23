@@ -2,8 +2,14 @@
   <div>
     <div class="container">
       <div v-for="(item,index) in commentList" :key="index" class="comment-container">
-        <Avatar shape="circle" icon="ios-person" :size="200" />
-        {{item.username}}{{item.content}}{{item.date}}
+        <div>
+          <div class="iconfont icon-yonghu"></div>
+        </div>
+        <div class="right-part">
+          <span style="margin-right:20px;">{{item.username}}</span>
+          <div class="content">{{item.content}}</div>
+          <span class="date">{{item.date}}</span>
+        </div>
       </div>
 
       <div class="intro-container">
@@ -120,6 +126,17 @@ li {
   position: relative;
   margin: 20px auto;
   border-radius: 5px;
+  .icon-yonghu {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+    border-radius: 50%;
+    border: 1px solid #000;
+    margin: 40px 20px 20px 20px;
+  }
   .intro-container {
     position: absolute;
     right: 0;
@@ -143,7 +160,27 @@ li {
     height: 200px;
     margin-bottom: 20px;
     border-radius: 5px;
+    display: flex;
     border: 1px solid #eeeeee;
+    .right-part {
+      margin-top: 40px;
+      line-height: 40px;
+      position: relative;
+    }
+    .content {
+      font-weight: bolder;
+      position: absolute;
+      top: 20px;
+      width: 600px;
+      height: 100px;
+      overflow: scroll;
+    }
+    .date {
+      position: absolute;
+      width: 100px;
+      bottom: 10px;
+      left: 0px;
+    }
   }
 }
 </style>
