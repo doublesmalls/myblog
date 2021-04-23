@@ -40,3 +40,11 @@ export function getUserInfo(parameter) {
     data: parameter
   });
 }
+// 退出登录
+export function userLogout(parameter) {
+  return axios({
+    url: `/api/user/userLogout`,
+    method: 'get',
+    params: parameter
+  });
+}

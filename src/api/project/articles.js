@@ -18,3 +18,11 @@ export function getArticleById(parameter) {
     data: parameter
   });
 }
+// 获取前5个文章
+export function getArticleTopFive(parameter) {
+  return axios({
+    url: `/api/getArticleTopFive`,
+    method: 'post',
+    data: parameter
+  });
+}

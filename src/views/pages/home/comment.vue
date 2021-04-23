@@ -21,6 +21,7 @@
 
 <script>
 import { addComment, getCommentList } from '@/api/project/comment.js'
+import { getArticleTopFive } from '@/api/project/articles.js'
 import { mapGetters } from 'vuex'
 export default {
   data() {
@@ -28,6 +29,9 @@ export default {
       commentModalVisible: false,
       commentContent: '',
     }
+  },
+  mounted() {
+    this.getArticleFive()
   },
   computed: {
     ...mapGetters(['userInfo', 'token']),
@@ -83,6 +87,12 @@ export default {
         if (res.data.code === 200) {
           this.$Message.success(res.data.message)
         }
+      })
+    },
+    // 获取前5个文章
+    getArticleFive() {
+      getArticleTopFive().then((res) => {
+        console.log(res);
       })
     },
   },

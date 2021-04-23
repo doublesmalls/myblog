@@ -1,6 +1,7 @@
 import {
   loginUser,
-  getUserInfo
+  getUserInfo,
+  userLogout
 } from '@/api/admin/user.js'
 const userStore = {
   state: {
@@ -23,7 +24,7 @@ const userStore = {
 
     setUserInfo(state, userInfo) {
       state.userInfo = userInfo;
-      sessionStorage.setItem('userInfo', userInfo);
+      sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
     }
   },
   actions: {
@@ -64,7 +65,7 @@ const userStore = {
       commit
     }) {
       return new Promise((resolve, reject) => {
-        logout().then(
+        userLogout().then(
           response => {
             // commit(types.SET_TOKEN, null);
             // commit(types.SET_USER_INFO, null);

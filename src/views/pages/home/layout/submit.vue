@@ -1,9 +1,22 @@
 <template>
   <div>
-    <div class="submit">
+    <div v-if="!name" class="submit">
       <Button @click="clickLogin" type="info" style="margin-right:10px;">登录</Button>
       <Button @click="clickSign" style="margin-right:10px;">注册</Button>
       <Avatar icon="ios-person" size="large" />
+    </div>
+    <div v-if="name" class="user-info">
+      欢迎你:{{userInfo.name}}
+      <Dropdown>
+        <a href="javascript:void(0)">
+          <Avatar style="margin-left:10px;" icon="ios-person" size="large" />
+        </a>
+        <DropdownMenu slot="list">
+          <DropdownItem>
+            <span @click="handlelogout">退出登录</span>
+          </DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
     </div>
     <Modal :width="400" footer-hide v-model="submitModalVisible" :title="titleText" @on-cancel="handleClose">
       <Form :model="paramsForm" ref="submitForm" :rules="paramsFormRules" :label-width="60">
@@ -31,6 +44,8 @@ export default {
     return {
       submitModalVisible: false,
       titleText: '登录',
+      name: '',
+      isShowLogin: true,
       paramsForm: {
         username: '',
         password: '',
@@ -57,8 +72,13 @@ export default {
   computed: {
     ...mapGetters(['token', 'userInfo']),
   },
+  mounted() {
+    if (this.userInfo) {
+      this.name = this.userInfo.name
+    }
+  },
   methods: {
-    ...mapActions(['login', 'getUserInfo']),
+    ...mapActions(['login', 'getUserInfo', 'logout']),
 
     // 时间格式化
     dateFormat(fmt, date) {
@@ -120,7 +140,10 @@ export default {
               if (res.data.code === 200) {
                 this.submitModalVisible = false
                 this.$Message.success('登录成功!')
+                this.isShowLogin = false
                 this.getUserInfo({ _id: this.token })
+                this.name = this.userInfo.name
+                console.log(this.name)
               } else {
                 this.$Message.error(`登录失败！${res.data.data.message}`)
               }
@@ -137,12 +160,25 @@ export default {
     handleClose() {
       this.$refs.submitForm.resetFields()
     },
+    // 退出登录
+    handlelogout() {
+      this.logout().then((res) => {
+        this.$Message.success('退出成功!')
+        this.name = ''
+        
+      })
+    },
   },
 }
 </script>
 
 <style lang="less" scoped>
 .submit {
+  width: 220px;
+  position: absolute;
+  right: 20px;
+}
+.user-info {
   width: 220px;
   position: absolute;
   right: 20px;
