@@ -33,9 +33,12 @@
             <Option v-for="item in tagList" :value="item.value" :key="item.value">{{ item.label }}</Option>
           </Select>
         </FormItem>
+        <Upload action="http://192.168.2.166:3000/api/addCover">
+          <Button icon="ios-cloud-upload-outline">Upload files</Button>
+        </Upload>
         <FormItem label="内容" prop="content">
           <vue-editor style="height:400px;width:900px;" v-model="paramsForm.content" />
-        </FormItem>
+        </FormItem> 
         <FormItem style="margin-top:100px;">
           <Col :span="3">
             <Button style="width:80px;" @click="handleSubmit()" type="info">确认</Button>
@@ -55,12 +58,20 @@ import {
   getArticleById,
   editArticle,
 } from '@/api/admin/article.js'
+import UploadImg from '@/components/Upload.vue'
 export default {
   mounted() {
     this.getList()
   },
+  components: {
+    UploadImg,
+  },
   data() {
     return {
+      uploadData: {
+        url: '', // 图片二进制的data的url
+        articleId: '', // 这个详情的ID 后台与他绑在一起
+      },
       articleList: [],
       total: 1,
       pageNo: 1,
@@ -117,6 +128,14 @@ export default {
     }
   },
   methods: {
+    handleBeforeUpload(file) {
+      let reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onloadend = (e) => {
+        file.url = reader.result
+        this.uploadData.url = file.url
+      }
+    },
     dateFormat(fmt, date) {
       let ret
       const opt = {

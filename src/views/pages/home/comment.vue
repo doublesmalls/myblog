@@ -132,6 +132,7 @@ export default {
     handlePageChange(val) {
       this.currentPage = val
       this.getComment()
+      window.scrollTo(0, 0)
     },
   },
 }
@@ -158,10 +159,10 @@ li {
     margin: 40px 20px 20px 20px;
   }
   .intro-container {
-    position: absolute;
-    right: 0;
+    position: fixed;
+    right: 50px;
     width: 330px;
-    top: 0;
+    top: 100px;
     border-radius: 5px;
     border: 1px solid #eeeeee9f;
     .intro-button {

@@ -1,15 +1,13 @@
 <template>
   <div>
-    留言管理
+    评论管理
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {}
 </script>
 
-<style>
+<style lang="less" scoped>
 
 </style>

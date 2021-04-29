@@ -19,3 +19,30 @@ export function getCommentList(parameter) {
     data: parameter
   });
 }
+
+// 获取全部留言列表
+export function getAllComment(parameter) {
+  return axios({
+    url: `/api/getAllComment`,
+    method: 'post',
+    data: parameter
+  });
+}
+
+// 删除留言
+export function deleteComment(parameter) {
+  return axios({
+    url: `/api/deleteComment`,
+    method: 'post',
+    data: parameter
+  });
+}
+
+// 获取前3个留言
+export function getTopThreeList(parameter) {
+  return axios({
+    url: `/api/getCommentTopThree`,
+    method: 'post',
+    data: parameter
+  });
+}

@@ -38,7 +38,7 @@ export default {}
 .ivu-menu {
   height: 100%;
 }
-.content{
+.content {
   box-sizing: border-box;
   padding: 10px;
   overflow: scroll;
