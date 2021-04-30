@@ -17,7 +17,7 @@
       </div>
       <div class="right-part">
         <div class="article-item" v-for="(item,index) in articleList" :key="index">
-          <h2 class="title">{{item.title}}</h2>
+          <h2 @click="jumpToDetail(item)" class="title">{{item.title}}</h2>
           <p class="content" v-html="item.content"></p>
           <span class="date">{{item.date}}</span>
         </div>
@@ -62,7 +62,6 @@ export default {
       getArticleList({ pageNo: 1, pageSize: 10 }).then((res) => {
         if (res.data.code === 200) {
           this.articleList = res.data.data
-          console.log(res.data.data)
         }
       })
     },
@@ -72,6 +71,15 @@ export default {
         if (res.data.code === 200) {
           this.commentList = res.data.data
         }
+      })
+    },
+    // 前往详情
+    jumpToDetail(item) {
+      this.$router.push({
+        name: 'Detail',
+        query: {
+          detailId: item._id,
+        },
       })
     },
   },
@@ -118,6 +126,7 @@ li {
       margin-bottom: 20px;
       .title {
         padding: 10px 0 10px 15px;
+        cursor: pointer;
       }
       .content {
         width: 600px;
