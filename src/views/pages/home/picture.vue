@@ -1,18 +1,32 @@
 <template>
   <div>
     <div class="header">
-      <swiper style="height:100%" ref="mySwiper" :options="swiperOptions">
-        <swiper-slide>
-          <img style="height:100%" src="@/assets/images/banner1.png" alt />
-        </swiper-slide>
-        <swiper-slide>
-          <img src="@/assets/images/banner2.png" alt />
-        </swiper-slide>
-        <swiper-slide>
-          <img src="@/assets/images/banner3.jpg" alt />
-        </swiper-slide>
-        <div class="swiper-pagination" slot="pagination"></div>
-      </swiper>
+      <Carousel style="height:100%;" autoplay v-model="value2" loop>
+        <CarouselItem>
+          <div class="demo-carousel">
+            <img src="@/assets/images/banner1.jpg" alt />
+          </div>
+        </CarouselItem>
+        <CarouselItem>
+          <div class="demo-carousel">
+            <img src="@/assets/images/banner2.jpg" alt />
+          </div>
+        </CarouselItem>
+        <CarouselItem>
+          <div class="demo-carousel">
+            <img src="@/assets/images/banner3.jpg" alt />
+          </div>
+        </CarouselItem>
+      </Carousel>
+    </div>
+    <div class="content">
+      <waterfall :col="4" :data="dataList">
+        <template>
+          <li class="image-item" v-for="(item,index) in dataList" :key="index">
+            <img :src="item.source" alt />
+          </li>
+        </template>
+      </waterfall>
     </div>
   </div>
 </template>
@@ -21,40 +35,49 @@
 export default {
   data() {
     return {
-      swiperOptions: {
-        pagination: {
-          el: '.swiper-pagination',
-        },
-        // Some Swiper option/callback...
-        effect: 'coverflow',
-        slidesPerView: 1,
-        centeredSlides: true,
-        coverflowEffect: {
-          rotate: 30,
-          stretch: 10,
-          depth: 60,
-          modifier: 2,
-          slideShadows: true,
-        },
-      },
+      value2: 0,
+      dataList: [
+        { source: require('@/assets/images/source1.png') },
+        { source: require('@/assets/images/source2.png') },
+        { source: require('@/assets/images/source2.png') },
+        { source: require('@/assets/images/source2.png') },
+        { source: require('@/assets/images/source1.png') },
+        { source: require('@/assets/images/source2.png') },
+        { source: require('@/assets/images/source2.png') },
+        { source: require('@/assets/images/source2.png') },
+      ],
     }
-  },
-  computed: {
-    swiper() {
-      return this.$refs.mySwiper.$swiper
-    },
-  },
-  mounted() {
-    this.swiper.slideTo(3, 1000, false)
   },
 }
 </script>
 
 <style lang="less" scoped>
+li {
+  list-style: none;
+}
 .header {
-  width: 1200px;
-  margin: 0 auto;
-  height: 400px;
+  height: 350px;
   text-align: center;
+  .demo-carousel {
+    height: 350px;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+.content {
+  width: 850px;
+  margin: 0 auto;
+  .image-item {
+    width: 200px;
+    border: 1px solid #eeeeee;
+    padding: 5px;
+    margin: 10px;
+  }
+  img {
+    width: 100%;
+    padding: 15px;
+  }
 }
 </style>

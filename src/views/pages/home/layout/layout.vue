@@ -16,7 +16,7 @@
       </MenuItem>
       <Submit></Submit>
     </Menu>
-    <router-view style="margin-top:70px;"></router-view>
+    <router-view style="margin-top:60px;"></router-view>
   </div>
 </template>
 

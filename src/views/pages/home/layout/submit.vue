@@ -19,7 +19,7 @@
       </Dropdown>
     </div>
     <Modal :width="400" footer-hide v-model="submitModalVisible" :title="titleText" @on-cancel="handleClose">
-      <Form :model="paramsForm" ref="submitForm" :rules="paramsFormRules" :label-width="60">
+      <Form :model="paramsForm" ref="submitForm" :rules="paramsFormRules" :label-width="80">
         <FormItem prop="username" label="用户名">
           <Input v-model="paramsForm.username" type="text" />
         </FormItem>

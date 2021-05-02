@@ -11,7 +11,7 @@
     </Carousel>
     <Table border :columns="columns" :data="commentList">
       <template slot-scope="{ row, index }" slot="action">
-        <Button type="primary" size="small" style="margin-right: 5px" @click="show(row)">查看</Button>
+        <Button type="info" size="small" style="margin-right: 5px" @click="show(row)">查看</Button>
         <Poptip transfer confirm title="确定删除这条记录吗" @on-ok="deleteCommentItem(row)">
           <Button type="error" size="small">删除</Button>
         </Poptip>
@@ -80,7 +80,7 @@ export default {
     show(row) {
       this.$Modal.info({
         title: '留言信息',
-        content: `用户名:${row.name}<br>内容:${row.content}<br>`,
+        content: `用户名:${row.username}<br>内容:${row.content}<br>`,
       })
     },
   },

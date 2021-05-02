@@ -97,7 +97,6 @@ export default {
     },
     // 确定新增留言
     handleAddComment() {
-      console.log(this.userInfo)
       addComment({
         userId: this.token,
         username: this.userInfo.name,
@@ -146,6 +145,7 @@ li {
   width: 1200px;
   position: relative;
   margin: 20px auto;
+  padding:10px;
   border-radius: 5px;
   .icon-yonghu {
     display: inline-block;
@@ -167,6 +167,8 @@ li {
     border: 1px solid #eeeeee9f;
     .intro-button {
       float: right;
+      width: 80px;
+      font-size: 12px;
     }
     li {
       padding: 5px;
@@ -198,7 +200,7 @@ li {
     }
     .date {
       position: absolute;
-      width: 100px;
+      width: 200px;
       bottom: 10px;
       left: 0px;
     }

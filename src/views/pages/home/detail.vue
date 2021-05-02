@@ -8,14 +8,19 @@
       </div>
       <p class="detail-content" v-html="detailContent.content"></p>
     </div>
+    <Message :articleId="detailId" :articleTitle="detailContent.title"></Message>
   </div>
 </template>
 
 <script>
+import Message from '@/components/Message.vue'
 import { getArticleById } from '@/api/project/articles.js'
 export default {
   mounted() {
     this.init()
+  },
+  components: {
+    Message,
   },
   data() {
     return {
@@ -26,6 +31,7 @@ export default {
   methods: {
     init() {
       this.detailId = this.$route.query.detailId
+      this.userId = this.token
       getArticleById({ _id: this.detailId }).then((res) => {
         if (res.data.code === 200) {
           this.detailContent = res.data.data
@@ -44,14 +50,13 @@ export default {
   .detail-title {
     text-align: center;
     margin-bottom: 20px;
-    background-color: rgb(205, 233, 240);
+    background-color: rgba(205, 233, 240, 0.2);
     border-radius: 5px;
   }
   .detail-content {
     width: 1200px;
-    height: 800px;
     overflow: scroll;
-    background-color: rgb(234, 243, 245);
+    background-color: rgba(234, 243, 245, 0.3);
     padding: 25px;
 
     border-radius: 5px;

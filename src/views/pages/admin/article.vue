@@ -38,12 +38,10 @@
         </Upload>
         <FormItem label="内容" prop="content">
           <vue-editor style="height:400px;width:900px;" v-model="paramsForm.content" />
-        </FormItem> 
+        </FormItem>
         <FormItem style="margin-top:100px;">
-          <Col :span="3">
-            <Button style="width:80px;" @click="handleSubmit()" type="info">确认</Button>
-          </Col>
-          <Button @click="handleCancel" style="width:80px;">取消</Button>
+          <Button style="width:60px;margin-right:20px;" @click="handleSubmit()" type="info">确认</Button>
+          <Button @click="handleCancel" style="width:60px;">取消</Button>
         </FormItem>
       </Form>
     </div>

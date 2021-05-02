@@ -95,11 +95,13 @@ li {
   height: 100%;
   position: relative;
   .left-part {
-    width: 300px;
+    width: 330px;
     height: 100vh;
     border-radius: 5px;
     position: fixed;
     background-color: rgb(212, 236, 238);
+    background: url('./../../..//assets/images/background.jpeg') no-repeat;
+    background-size: 100% 100%;
     .avatar {
       width: 130px;
       height: 130px;
@@ -108,13 +110,13 @@ li {
     }
     .intro {
       width: 100%;
-      height: 300px;
+      height: 500px;
       position: absolute;
       bottom: 0;
     }
   }
   .right-part {
-    margin-left: 300px;
+    margin-left: 330px;
     margin-top: 20px;
     position: relative;
     .article-item {
@@ -144,9 +146,9 @@ li {
     }
   }
   .news-comment {
-    width: 400px;
+    width: 300px;
     height: 300px;
-    right: 20px;
+    right: 50px;
     top: 100px;
     position: fixed;
     .comment-item {

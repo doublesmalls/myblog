@@ -28,7 +28,6 @@ const userStore = {
         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
       } else {
         sessionStorage.removeItem('userInfo');
-
       }
     }
   },
