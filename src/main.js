@@ -14,6 +14,10 @@ import Vue2Editor from "vue2-editor";
 import waterfall from 'vue-waterfall2'
 import ViewUI from 'view-design'
 import 'view-design/dist/styles/iview.css'
+import live2d from 'ttzxh-vue-live2d'
+import live2dcss from '../node_modules/ttzxh-vue-live2d/dist/ttzxh-vue-live2d.css'
+
+Vue.use(live2d)
 Vue.use(ViewUI)
 Vue.config.productionTip = false
 

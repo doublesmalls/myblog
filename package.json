@@ -16,6 +16,7 @@
     "less-loader": "^5.0.0",
     "swiper": "^6.5.8",
     "tinymce": "^5.7.1",
+    "ttzxh-vue-live2d": "^0.1.9",
     "view-design": "^4.5.0",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",

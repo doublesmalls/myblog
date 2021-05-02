@@ -33,9 +33,6 @@
             <Option v-for="item in tagList" :value="item.value" :key="item.value">{{ item.label }}</Option>
           </Select>
         </FormItem>
-        <Upload action="http://192.168.2.166:3000/api/addCover">
-          <Button icon="ios-cloud-upload-outline">Upload files</Button>
-        </Upload>
         <FormItem label="内容" prop="content">
           <vue-editor style="height:400px;width:900px;" v-model="paramsForm.content" />
         </FormItem>
@@ -56,14 +53,11 @@ import {
   getArticleById,
   editArticle,
 } from '@/api/admin/article.js'
-import UploadImg from '@/components/Upload.vue'
 export default {
   mounted() {
     this.getList()
   },
-  components: {
-    UploadImg,
-  },
+
   data() {
     return {
       uploadData: {
