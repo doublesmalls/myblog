@@ -14,6 +14,7 @@
           <span class="username">{{item.username}}</span>
         </div>
         <div class="comment-content">{{item.content}}</div>
+        <div class="date">{{item.date}}</div>
       </li>
     </div>
   </div>
@@ -55,7 +56,6 @@ export default {
     getList() {
       getMessageList({
         articleId: this.articleId,
-        userId: this.token,
       }).then((res) => {
         if (res.data.code === 200) {
           this.messageList = res.data.data
@@ -152,12 +152,20 @@ li {
     font-size: 14px;
   }
   .content-item {
+    position: relative;
     width: 900px;
     height: 130px;
     margin-top: 20px;
     border-radius: 5px;
     border-bottom: 1px solid #eeeeee;
     display: flex;
+    .date {
+      width: 200px;
+      position: absolute;
+      bottom: 10px;
+      left: 140px;
+      font-size: 12px;
+    }
     .user {
       width: 120px;
       display: flex;

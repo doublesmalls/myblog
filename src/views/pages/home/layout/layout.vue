@@ -23,6 +23,24 @@
 <script>
 import Submit from '@/views/pages/home/layout/submit.vue'
 export default {
+  created() {
+    setTimeout(() => {
+      window.L2Dwidget.init({
+        pluginRootPath: 'live2dw/',
+        pluginJsPath: 'lib/',
+        pluginModelPath: 'live2d-widget-model-hijiki/assets/',
+        tagMode: false,
+        debug: false,
+        model: {
+          jsonPath:
+            '/live2dw/live2d-widget-model-nipsilon/assets/nipsilon.model.json',
+        },
+        display: { position: 'right', width: 180, height: 400 },
+        mobile: { show: true },
+        log: false,
+      })
+    }, 1000)
+  },
   components: {
     Submit,
   },
@@ -31,7 +49,7 @@ export default {
 
 <style lang="less" scoped>
 .menu {
-  width:100%;
+  width: 100%;
   position: fixed;
   top: 0;
 }

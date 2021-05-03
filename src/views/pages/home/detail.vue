@@ -31,7 +31,6 @@ export default {
   methods: {
     init() {
       this.detailId = this.$route.query.detailId
-      this.userId = this.token
       getArticleById({ _id: this.detailId }).then((res) => {
         if (res.data.code === 200) {
           this.detailContent = res.data.data
@@ -50,13 +49,11 @@ export default {
   .detail-title {
     text-align: center;
     margin-bottom: 20px;
-    background-color: rgba(205, 233, 240, 0.2);
     border-radius: 5px;
   }
   .detail-content {
     width: 1200px;
     overflow: scroll;
-    background-color: rgba(234, 243, 245, 0.3);
     padding: 25px;
 
     border-radius: 5px;
