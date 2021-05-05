@@ -5,8 +5,8 @@ import {
 export function getUserList(parameter) {
   return axios({
     url: `/api/user/getUserList`,
-    method: 'get',
-    params: parameter
+    method: 'post',
+    data: parameter
   });
 }
 export function deleteUser(parameter) {
@@ -46,5 +46,14 @@ export function userLogout(parameter) {
     url: `/api/user/userLogout`,
     method: 'get',
     params: parameter
+  });
+}
+
+// 搜索用户名
+export function searchUser(parameter) {
+  return axios({
+    url: `/api/searchUser`,
+    method: 'post',
+    data: parameter
   });
 }

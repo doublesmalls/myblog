@@ -2,10 +2,11 @@
   <div>
     <Form style="margin:0 auto;width:500px;" ref="formInline" inline>
       <FormItem prop="user">
-        <Input style="width:200px" type="text" placeholder="用户名"></Input>
+        <Input v-model="paramsForm.userName" style="width:200px" type="text" placeholder="用户名"></Input>
       </FormItem>
       <FormItem>
-        <Button type="primary">搜索</Button>
+        <Button @click="search" type="primary">搜索</Button>
+        <Button @click="reSet" style="margin-left:10px;">重置</Button>
       </FormItem>
     </Form>
     <Table border :columns="columns" :data="listData">
@@ -17,11 +18,20 @@
         </Poptip>
       </template>
     </Table>
+    <Page
+      @on-change="handlePageChange"
+      @on-page-size-change="handlePageSizeChange"
+      style="margin-top:10px;"
+      :page-size="paramsForm.pageSize"
+      :current="paramsForm.pageNo"
+      :total="paramsForm.total"
+      show-sizer
+    />
   </div>
 </template>
 
 <script>
-import { getUserList, deleteUser } from '@/api/admin/user.js'
+import { getUserList, deleteUser, searchUser } from '@/api/admin/user.js'
 export default {
   mounted() {
     this.getList()
@@ -30,6 +40,9 @@ export default {
     return {
       paramsForm: {
         userName: '',
+        pageSize: 10,
+        total: 1,
+        pageNo: 1,
       },
       columns: [
         {
@@ -68,12 +81,43 @@ export default {
   },
   methods: {
     getList() {
-      getUserList().then((res) => {
+      getUserList({
+        pageSize: this.paramsForm.pageSize,
+        pageNo: this.paramsForm.pageNo,
+      }).then((res) => {
         if (res.data.code === 200) {
           this.listData = res.data.data
+          this.paramsForm.total = res.data.total
         }
-        console.log(res)
       })
+    },
+    handlePageChange(val) {
+      this.paramsForm.pageNo = val
+      this.getList()
+    },
+    handlePageSizeChange(val) {
+      this.paramsForm.pageSize = val
+      this.getList()
+    },
+    // 搜索用户名
+    search() {
+      searchUser({
+        pageSize: this.paramsForm.pageSize,
+        pageNo: this.paramsForm.pageNo,
+        name: this.paramsForm.userName,
+      }).then((res) => {
+        if (res.data.code === 200) {
+          this.listData = res.data.data
+          this.paramsForm.total = res.data.total
+        }
+      })
+    },
+    // 重置
+    reSet() {
+      this.paramsForm.pageSize = 10
+      this.paramsForm.pageNo = 1
+      this.paramsForm.userName = ''
+      this.getList()
     },
     show(row) {
       this.$Modal.info({

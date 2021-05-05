@@ -1,7 +1,15 @@
 <template>
   <div>
     <div v-if="!modalVisible">
-      <Button @click="jumpToAdd" style="margin:20px;" type="info">新增文章</Button>
+      <Row style="margin:20px;" :gutter="20">
+        <Button @click="jumpToAdd" type="info">新增文章</Button>
+        <Col :span="6">
+          <Input v-model="searchTitle" placeholder="搜索文章名" />
+        </Col>
+        <Button type="info" style="margin-right:10px;" @click="handleSearch">搜索</Button>
+        <Button @click="reset">重置</Button>
+      </Row>
+
       <List>
         <ListItem class="list-item" v-for="(item,index) in articleList" :key="index">
           <ListItemMeta avatar="https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar" :title="item.title" :description="item.date" />
@@ -52,6 +60,7 @@ import {
   deleteArticle,
   getArticleById,
   editArticle,
+  searchArticle,
 } from '@/api/admin/article.js'
 export default {
   mounted() {
@@ -65,6 +74,7 @@ export default {
         articleId: '', // 这个详情的ID 后台与他绑在一起
       },
       articleList: [],
+      searchTitle: '',
       total: 1,
       pageNo: 1,
       pageSize: 10,
@@ -127,6 +137,19 @@ export default {
         file.url = reader.result
         this.uploadData.url = file.url
       }
+    },
+    handleSearch() {
+      searchArticle({ title: this.searchTitle }).then((res) => {
+        if (res.data.code === 200) {
+          this.articleList = res.data.data
+          this.total = res.data.total
+        }
+      })
+    },
+    reset() {
+      this.searchTitle = ''
+      this.articleList = []
+      this.getList(1, 10)
     },
     dateFormat(fmt, date) {
       let ret
@@ -196,7 +219,6 @@ export default {
           this.paramsForm.tagValue = res.data.data.tag
           this.paramsForm.content = res.data.data.content
           this.editId = res.data.data._id
-          console.log(res.data)
         }
       })
     },

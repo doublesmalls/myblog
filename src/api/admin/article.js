@@ -42,3 +42,12 @@ export function editArticle(parameter) {
     data: parameter
   });
 }
+
+// 搜索文章标题
+export function searchArticle(parameter) {
+  return axios({
+    url: `/api/searchArticle`,
+    method: 'post',
+    data: parameter
+  });
+}
