@@ -7,13 +7,12 @@
 
 <script>
 export default {
-
   name: 'App',
 }
 </script>
 
 <style>
-@import url('//at.alicdn.com/t/font_2289781_0t0zh082k9d.css');
+@import url('//at.alicdn.com/t/font_2289781_mhs9drox6oh.css');
 html,
 body {
   height: 100%;

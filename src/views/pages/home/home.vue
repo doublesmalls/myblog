@@ -10,6 +10,7 @@
             <Col :span="16" :offset="4">
               <FormItem>
                 <Input placeholder="搜索内容" v-model="paramsForm.searchContent" />
+                <div @click="searchByTitle" class="iconfont icon-sousuo"></div>
               </FormItem>
             </Col>
           </Form>
@@ -40,7 +41,7 @@
 </template> 
 
 <script>
-import { getArticleList } from '@/api/project/articles.js'
+import { getArticleList, searchTitle } from '@/api/project/articles.js'
 import { getTopThreeList } from '@/api/project/comment.js'
 export default {
   mounted() {
@@ -73,6 +74,19 @@ export default {
         }
       })
     },
+    // 搜索标题
+    searchByTitle() {
+      searchTitle({
+        pageNo: 1,
+        pageSize: 10,
+        title: this.paramsForm.searchContent,
+      }).then((res) => {
+        if (res.data.code === 200) {
+          this.articleList = res.data.data
+        }
+        console.log(res)
+      })
+    },
     // 前往详情
     jumpToDetail(item) {
       this.$router.push({
@@ -89,6 +103,13 @@ export default {
 <style lang="less" scoped>
 li {
   list-style: none;
+}
+.icon-sousuo {
+  position: absolute;
+  right: 10px;
+  top: 0px;
+  cursor: pointer;
+  font-size: 22px;
 }
 .box {
   display: flex;

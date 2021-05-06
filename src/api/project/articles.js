@@ -26,3 +26,11 @@ export function getArticleTopFive(parameter) {
     data: parameter
   });
 }
+// 搜索文章标题
+export function searchTitle(parameter) {
+  return axios({
+    url: `/api/searchTitle`,
+    method: 'post',
+    data: parameter
+  });
+}
