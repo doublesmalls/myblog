@@ -12,6 +12,9 @@
     <Table border :columns="columns" :data="listData">
       <template slot-scope="{ row, index }" slot="roles">{{row.roles.toString()}}</template>
       <template slot-scope="{ row, index }" slot="action">
+        <Poptip transfer confirm title="确定为该用户分配管理员吗" @on-ok="addManage(row)">
+          <Button type="info" size="small" style="margin-right:5px">分配管理员</Button>
+        </Poptip>
         <Button type="primary" size="small" style="margin-right: 5px" @click="show(row)">查看</Button>
         <Poptip transfer confirm title="确定删除这条记录吗" @on-ok="handleDelete(row)">
           <Button type="error" size="small">删除</Button>
@@ -31,7 +34,12 @@
 </template>
 
 <script>
-import { getUserList, deleteUser, searchUser } from '@/api/admin/user.js'
+import {
+  getUserList,
+  deleteUser,
+  searchUser,
+  addManagePerson,
+} from '@/api/admin/user.js'
 export default {
   mounted() {
     this.getList()
@@ -130,6 +138,17 @@ export default {
         if (res.data.code === 200) {
           this.getList()
           this.$Message.success('删除成功')
+        }
+      })
+    },
+    // 分配管理员
+    addManage(row) {
+      addManagePerson({
+        id: row._id,
+      }).then((res) => {
+        if (res.data.code === 200) {
+          this.$Message.success('操作成功')
+          this.getList()
         }
       })
     },

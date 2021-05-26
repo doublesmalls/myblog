@@ -84,7 +84,6 @@ export default {
         if (res.data.code === 200) {
           this.articleList = res.data.data
         }
-        console.log(res)
       })
     },
     // 前往详情

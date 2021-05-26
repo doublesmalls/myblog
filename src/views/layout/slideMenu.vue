@@ -15,6 +15,9 @@
           <MenuItem to="/admin/comment" name="comment">
             <i class="iconfont icon-icon-test"></i>留言管理
           </MenuItem>
+          <MenuItem to="/" name="exit">
+            <i class="iconfont icon-fanhui"></i>返回
+          </MenuItem>
         </Menu>
         <div slot="trigger"></div>
       </Sider>

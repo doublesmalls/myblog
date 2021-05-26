@@ -34,6 +34,7 @@ export default {
       getArticleById({ _id: this.detailId }).then((res) => {
         if (res.data.code === 200) {
           this.detailContent = res.data.data
+          window.scrollTo(0, 0)
         }
       })
     },

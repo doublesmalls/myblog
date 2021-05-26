@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="listContainer">
-      <List item-layout="vertical">
+      <List style="padding:20px" item-layout="vertical">
         <ListItem class="listItem" v-for="(item,index) in listData" :key="index">
           <ListItemMeta :avatar="item.avatar" :title="item.title" />
           <template slot="extra">
-            <img src="@/assets/images/cover.jpg" style="width:200px;" alt />
+            <img src="@/assets/images/cover.jpg" style="width:220px;" alt />
           </template>
           <span @click="handleJumpToDetail(item)" class="detail">查看详情</span>
         </ListItem>
@@ -67,16 +67,18 @@ export default {
     position: relative;
     margin: 10px;
     margin-top: 20px;
-    height: 200px;
+    height: 240px;
     overflow: hidden;
     padding: 20px;
     border-radius: 5px;
+    transition: all linear 0.3s;
+
     cursor: pointer;
   }
   .listItem:hover {
     transition: all linear 0.3s;
     transform: translateY(-10px;);
-    background-color: rgba(197, 232, 236, 0.5);
+    background-color: rgba(220, 238, 240, 0.5);
   }
   .detail {
     color: rgb(120, 204, 204);
@@ -84,5 +86,4 @@ export default {
     bottom: 10px;
   }
 }
-
 </style>

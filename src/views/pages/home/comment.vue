@@ -60,7 +60,6 @@ export default {
         if (res.data.code === 200) {
           this.commentList = res.data.data
           this.total = res.data.total
-          console.log(this.commentList)
         }
       })
     },
@@ -114,7 +113,6 @@ export default {
       getArticleTopFive().then((res) => {
         if (res.data.code === 200) {
           this.recommendContent = res.data.data
-          console.log(this.recommendContent)
         }
       })
     },

@@ -54,18 +54,25 @@ const constRoutes = [{
       path: '/picture',
       name: 'picture',
       component: () => import('@/views/pages/home/picture.vue')
-    },{
-      path:'/detail',
-      name:'Detail',
-      component:() => import('@/views/pages/home/detail.vue')
+    }, {
+      path: '/detail',
+      name: 'Detail',
+      component: () => import('@/views/pages/home/detail.vue')
     }]
   },
-
+  {
+    path: '/404',
+    component: () => import('@/views/pages/common/404.vue')
+  },
+  {
+    path: '*',
+    component: () => import('@/views/pages/common/404.vue')
+  }
 ];
 
 const router = new VueRouter({
   mode: 'history',
-  routes: constRoutes
+  routes: constRoutes,
 });
 // 路由白名单
 // const whiteList = [];

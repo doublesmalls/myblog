@@ -79,7 +79,6 @@ export default {
     // 删除评论
     handleDeleteMessage(item) {
       deleteMessage({ _id: item._id }).then((res) => {
-        console.log(res)
         if (res.data.code === 200) {
           this.$Message.success('删除留言成功')
           this.getList()

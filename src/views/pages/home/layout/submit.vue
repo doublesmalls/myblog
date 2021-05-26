@@ -1,34 +1,45 @@
 <template>
   <div>
-    <div v-if="!name" class="submit">
-      <Button @click="clickLogin" type="info" style="margin-right:10px;">登录</Button>
-      <Button @click="clickSign" style="margin-right:10px;">注册</Button>
-      <Avatar icon="ios-person" size="large" />
-    </div>
-    <div v-if="name" class="user-info">
-      欢迎你:{{name}}
-      <Dropdown>
-        <a href="javascript:void(0)">
-          <Avatar style="margin-left:10px;" icon="ios-person" size="large" />
-        </a>
-        <DropdownMenu slot="list">
-          <DropdownItem>
-            <span @click="handlelogout">退出登录</span>
-          </DropdownItem>
-        </DropdownMenu>
-      </Dropdown>
-    </div>
+    <Row>
+      <Col>
+        <Button v-if="backInfo" @click="jumpToManage" type="info">进入后台管理</Button>
+      </Col>
+      <div v-if="!name" class="submit">
+        <Button @click="clickLogin" type="info" style="margin-right:10px;">登录</Button>
+        <Button @click="clickSign" style="margin-right:10px;">注册</Button>
+        <Avatar icon="ios-person" size="large" />
+      </div>
+      <div v-if="name" class="user-info">
+        欢迎你:{{name}}
+        <Dropdown>
+          <a href="javascript:void(0)">
+            <Avatar style="margin-left:10px;" icon="ios-person" size="large" />
+          </a>
+          <DropdownMenu slot="list">
+            <DropdownItem>
+              <span @click="handlelogout">退出登录</span>
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
+    </Row>
+
     <Modal :width="400" footer-hide v-model="submitModalVisible" :title="titleText" @on-cancel="handleClose">
       <Form :model="paramsForm" ref="submitForm" :rules="paramsFormRules" :label-width="80">
-        <FormItem prop="username" label="用户名">
-          <Input v-model="paramsForm.username" type="text" />
-        </FormItem>
-        <FormItem prop="password" label="密码">
-          <Input v-model="paramsForm.password" type="password" />
-        </FormItem>
+        <Col :span="22">
+          <FormItem prop="username" label="用户名">
+            <Input v-model="paramsForm.username" type="text" />
+          </FormItem>
+        </Col>
+        <Col :span="22">
+          <FormItem prop="password" label="密码">
+            <Input v-model="paramsForm.password" type="password" />
+          </FormItem>
+        </Col>
+
         <FormItem style="text-align:center" :label-width="0">
           <Button @click="handleSubmit" style="margin-right:10px;" type="info">确认</Button>
-          <Button>取消</Button>
+          <Button @click="handleClose">取消</Button>
         </FormItem>
       </Form>
     </Modal>
@@ -37,7 +48,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-
 import { signUser, loginUser } from '@/api/admin/user.js'
 export default {
   data() {
@@ -45,6 +55,7 @@ export default {
       submitModalVisible: false,
       titleText: '登录',
       name: '',
+      backInfo: false,
       paramsForm: {
         username: '',
         password: '',
@@ -68,12 +79,16 @@ export default {
       },
     }
   },
+
   computed: {
     ...mapGetters(['token', 'userInfo']),
   },
   mounted() {
     if (this.userInfo) {
       this.name = this.userInfo.name
+    }
+    if (this.$store.getters.userInfo.adminType) {
+      this.backInfo = true
     }
   },
   methods: {
@@ -141,6 +156,7 @@ export default {
                 this.getUserInfo({ _id: this.token }).then((res) => {
                   if (res.data.code === 200) {
                     this.name = this.userInfo.name
+                    this.backInfo = true
                     this.$Message.success('登录成功!')
                   } else {
                     this.$Message.error(`登录失败！${res.data.data.message}`)
@@ -159,12 +175,21 @@ export default {
     // 关闭输入框
     handleClose() {
       this.$refs.submitForm.resetFields()
+      this.submitModalVisible = false
+    },
+    // 跳转管理系统
+    jumpToManage() {
+      let routeData = this.$router.resolve({
+        path: '/admin',
+      })
+      window.location.replace(routeData.href)
     },
     // 退出登录
     handlelogout() {
       this.logout().then((res) => {
-        this.$Message.success('退出成功!')
         this.name = ''
+        this.$Message.success('退出成功!')
+        this.backInfo = false
       })
     },
   },

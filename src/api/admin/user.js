@@ -57,3 +57,12 @@ export function searchUser(parameter) {
     data: parameter
   });
 }
+
+// 分配管理员
+export function addManagePerson(parameter) {
+  return axios({
+    url: `/api/addManagePerson`,
+    method: 'post',
+    data: parameter
+  });
+}

@@ -25,6 +25,32 @@ Vue.use(waterfall)
 Vue.use(Vue2Editor);
 Vue.use(ElementUI)
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */ )
+
+router.beforeEach((to, from, next) => {
+  ViewUI.LoadingBar.start();
+  if (to.fullPath.substr(0, 6) === '/admin') {
+    if (store.state.userStore.userInfo) {
+      if (store.state.userStore.userInfo.adminType) {
+        next()
+      } else {
+        next({
+          path: '/404'
+        })
+      }
+    } else {
+      next({
+        path: '/'
+      })
+    }
+
+  } else {
+    next()
+  }
+})
+router.afterEach(() => {
+  ViewUI.LoadingBar.finish();
+});
+
 new Vue({
   router,
   store,
