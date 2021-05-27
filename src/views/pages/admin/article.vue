@@ -41,6 +41,18 @@
             <Option v-for="item in tagList" :value="item.value" :key="item.value">{{ item.label }}</Option>
           </Select>
         </FormItem>
+        <Col :span="9">
+          <FormItem label="文章封面">
+            <Carousel @on-change="coverChange" v-model="coverValue" loop>
+              <CarouselItem v-for="(item,index) in coverData" :key="index" style="height:200px">
+                <div class="demo-carousel">
+                  <img style="width:100%;height:200px" :src="item.path" alt />
+                </div>
+              </CarouselItem>
+            </Carousel>
+          </FormItem>
+        </Col>
+
         <FormItem label="内容" prop="content">
           <vue-editor style="height:400px;width:900px;" v-model="paramsForm.content" />
         </FormItem>
@@ -75,10 +87,17 @@ export default {
       },
       articleList: [],
       searchTitle: '',
+      coverValue: 0,
       total: 1,
       pageNo: 1,
       pageSize: 10,
       modalVisible: false,
+      coverData: [
+        { path: require('@/assets/images/coverOne.webp') },
+        { path: require('@/assets/images/coverTwo.webp') },
+        { path: require('@/assets/images/coverThree.webp') },
+        { path: require('@/assets/images/coverFour.jpeg') },
+      ],
       tagList: [
         {
           value: 'javascript',
@@ -145,6 +164,9 @@ export default {
           this.total = res.data.total
         }
       })
+    },
+    coverChange(oldValue, value) {
+      this.coverValue = value
     },
     reset() {
       this.searchTitle = ''
@@ -218,6 +240,7 @@ export default {
           this.paramsForm.title = res.data.data.title
           this.paramsForm.tagValue = res.data.data.tag
           this.paramsForm.content = res.data.data.content
+          this.coverValue = res.data.data.coverValue
           this.editId = res.data.data._id
         }
       })
@@ -236,6 +259,7 @@ export default {
               author: this.paramsForm.author,
               tag: this.paramsForm.tagValue,
               date: this.dateFormat('YYYY-mm-dd HH:MM', new Date()),
+              coverValue: this.coverValue,
             }).then((res) => {
               if (res.data.code === 200) {
                 this.$Message.success('新增文章成功')
@@ -260,6 +284,7 @@ export default {
               author: this.paramsForm.author,
               tag: this.paramsForm.tagValue,
               date: this.dateFormat('YYYY-mm-dd HH:MM', new Date()),
+              coverValue: this.coverValue,
             }).then((res) => {
               if (res.data.code === 200) {
                 this.$Message.success('编辑文章成功')

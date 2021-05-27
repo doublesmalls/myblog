@@ -5,7 +5,10 @@
         <ListItem class="listItem" v-for="(item,index) in listData" :key="index">
           <ListItemMeta :avatar="item.avatar" :title="item.title" />
           <template slot="extra">
-            <img src="@/assets/images/cover.jpg" style="width:220px;" alt />
+            <img v-if="item.coverValue === 0" src="@/assets/images/coverOne.webp" style="width:300px;height:200px;border-radius:5px" alt />
+            <img v-if="item.coverValue === 1" src="@/assets/images/coverTwo.webp" style="width:300px;height:200px;border-radius:5px" alt />
+            <img v-if="item.coverValue === 2" src="@/assets/images/coverThree.webp" style="width:300px;height:200px;border-radius:5px" alt />
+            <img v-if="item.coverValue === 3" src="@/assets/images/coverFour.jpeg" style="width:300px;height:200px;border-radius:5px" alt />
           </template>
           <span @click="handleJumpToDetail(item)" class="detail">查看详情</span>
         </ListItem>
@@ -23,6 +26,7 @@ export default {
       listData: [],
       total: 1,
       currentPage: 1,
+      coverNumber: 0,
     }
   },
   mounted() {
@@ -42,7 +46,9 @@ export default {
       }).then((res) => {
         if (res.data.code === 200) {
           this.listData = res.data.data
+          console.log(this.listData)
           this.total = res.data.total
+          this.coverNumber = res.data.data.coverValue
         }
       })
     },
