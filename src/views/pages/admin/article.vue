@@ -12,7 +12,7 @@
 
       <List>
         <ListItem class="list-item" v-for="(item,index) in articleList" :key="index">
-          <ListItemMeta avatar="https://dev-file.iviewui.com/userinfoPDvn9gKWYihR24SpgC319vXY8qniCqj4/avatar" :title="item.title" :description="item.date" />
+          <ListItemMeta :title="item.title" :description="item.date" />
           <template slot="action">
             <li></li>
           </template>
@@ -302,4 +302,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.list-item{
+  margin:20px
+}
 </style>

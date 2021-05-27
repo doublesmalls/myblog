@@ -67,7 +67,7 @@ export default {
 
 <style lang="less" scoped>
 .listContainer {
-  width: 800px;
+  width: 900px;
   margin: 20px auto;
   .listItem {
     position: relative;

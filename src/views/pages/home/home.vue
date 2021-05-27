@@ -153,7 +153,7 @@ li {
       .content {
         width: 600px;
         height: 120px;
-        overflow: scroll;
+        overflow: hidden;
         margin-left: 15px;
       }
       .date {
