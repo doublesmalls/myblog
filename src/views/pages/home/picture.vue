@@ -20,7 +20,7 @@
       </Carousel>
     </div>
     <div class="content">
-      <waterfall :col="4" :data="dataList">
+      <waterfall :col="6" :data="dataList">
         <template>
           <li class="image-item" v-for="(item,index) in dataList" :key="index">
             <img :src="item.source" alt />
@@ -39,12 +39,24 @@ export default {
       dataList: [
         { source: require('@/assets/images/source1.png') },
         { source: require('@/assets/images/source2.png') },
-        { source: require('@/assets/images/source2.png') },
-        { source: require('@/assets/images/source2.png') },
-        { source: require('@/assets/images/source1.png') },
-        { source: require('@/assets/images/source2.png') },
-        { source: require('@/assets/images/source2.png') },
-        { source: require('@/assets/images/source2.png') },
+        { source: require('@/assets/images/source3.webp') },
+        { source: require('@/assets/images/source4.webp') },
+        { source: require('@/assets/images/source5.webp') },
+        { source: require('@/assets/images/source6.webp') },
+        { source: require('@/assets/images/source7.png') },
+        { source: require('@/assets/images/source8.webp') },
+        { source: require('@/assets/images/source9.webp') },
+        { source: require('@/assets/images/source10.webp') },
+        { source: require('@/assets/images/source11.webp') },
+        { source: require('@/assets/images/source12.webp') },
+        { source: require('@/assets/images/source13.webp') },
+        { source: require('@/assets/images/source14.webp') },
+        { source: require('@/assets/images/source15.webp') },
+        { source: require('@/assets/images/source16.webp') },
+        { source: require('@/assets/images/source17.webp') },
+        { source: require('@/assets/images/source18.webp') },
+        { source: require('@/assets/images/source19.webp') },
+        { source: require('@/assets/images/source20.webp') },
       ],
     }
   },
@@ -67,17 +79,16 @@ li {
   }
 }
 .content {
-  width: 850px;
+  width: 1300px;
   margin: 0 auto;
   .image-item {
     width: 200px;
     border: 1px solid #eeeeee;
-    padding: 5px;
     margin: 10px;
   }
   img {
     width: 100%;
-    padding: 15px;
+    padding: 3px;
   }
 }
 </style>
